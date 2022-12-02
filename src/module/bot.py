@@ -1,5 +1,5 @@
-from botMorpion.src.player import Player
-from botMorpion.src.morpion import Morpion
+from src.module.player import Player
+from src.module.morpion import Morpion
 
 
 class Bot:
