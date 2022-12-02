@@ -1,4 +1,4 @@
-from src.module.player import Player
+from src.player import Player
 
 
 class Morpion:

@@ -1,6 +1,6 @@
-from src.module.morpion import Morpion
-from src.module.bot import Bot
-from src.module.player import Player
+from src.morpion import Morpion
+from src.bot import Bot
+from src.player import Player
 
 
 game = Morpion(Player(False, "O", "user"), Player(True, "X", "bot"))
