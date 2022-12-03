@@ -1,12 +1,24 @@
 from morpion import Morpion
+from player import Player
 
 
-class Bot:
-    """
-        This class serve to calculates the better play to do in order to win using a backtracking function
-    """
-    def __init__(self): pass
-    def is_winning(self, mrp: Morpion) -> int: pass
-    def is_losing(self, mrp: Morpion) -> int: pass
-    def backtracking(self, mrp: Morpion) -> int: pass
-    def get_play_index(self, mrp: Morpion) -> int: pass
+def morpion_backtracking(mrp: Morpion, player: Player) -> tuple(int):
+    # This function return the best play to do
+    empty_cells = mrp.get_empty_cells()
+
+    best_play = (-2)
+
+    for index in empty_cells:
+        mrp.play(player.get_name(), index)
+
+        if mrp.is_full():
+            return (0, index)
+
+        if mrp.is_winner(player.get_name()):
+            return (1, index)
+
+        result = morpion_backtracking(mrp, mrp.get_other_player(player.get_name()))
+        if result[0] > best_play[0]:
+            best_play = result
+    
+    return best_play

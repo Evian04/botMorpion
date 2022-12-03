@@ -15,6 +15,13 @@ class Morpion:
         self.player_1 = player_1
         self.player_2 = player_2
         self.grid = [str(d + 1) for d in range(9)] # ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+    def play(self, player_name: str, index: int):
+        # This function put the sign of the player `player_name` in the cell with index = `index`
+        if not index in range(9): # If `index` isn't between 0 and 8
+            quit(f"Error at function `play()` : the index entered ({index}) is not between 0 and 8 (inclusive)")
+
+        self.grid[index] = self.get_player(player_name).get_sign()
     
     def request_user(self, player_name: str) -> int:
         # This function ask to the user in which cell he wants to play using the `input()` function, and return an integer between 0 and 8 inclusive
@@ -25,17 +32,10 @@ class Morpion:
         
         return int(user_input) - 1
 
-    def play(self, player_name: str, index: int):
-        # This function put the sign of the player `player_name` in the cell with index = `index`
-        if not index in range(9): # If `index` isn't between 0 and 8
-            quit(f"Error at function `play()` : the index entered ({index}) is not between 0 and 8 (inclusive)")
-
-        self.grid[index] = self.get_player(player_name).get_sign()
-
     def get_content(self) -> list[str]:
         return self.grid
     
-    def get_empty_cell(self) -> list:
+    def get_empty_cells(self) -> list:
         # This function return a list that contains the index of all the empty cells of the grid
         empty_cells = []
         for i in range(9):
@@ -54,10 +54,21 @@ class Morpion:
             
         quit(f"Error at function `get_player()` : {player_name} does not match with any player name")
         # This error happens when none of the player has the name `name_player`
+    
+    def get_other_player(self, player_name: str) -> Player:
+        # Return some information about a player with the `Player` class according to the name of the other player name
+        if player_name == self.player_1.get_name():
+            return self.player_2
+            
+        if player_name == self.player_2.get_name():
+            return self.player_1
+            
+        quit(f"Error at function `get_other_player()` : {player_name} does not match with any player name")
+        # This error happens when none of the player has the name `name_player`
 
     def is_full(self) -> bool:
         # return if the grid is full
-        return len(self.get_empty_cell()) == 0
+        return len(self.get_empty_cells()) == 0
 
     def is_winner(self, player_name: str = "Any") -> bool:
         # This function return if the player `player_name` won, or if `player_name == "Any"`, if any player won
@@ -68,6 +79,9 @@ class Morpion:
                 return True
         
         return False
+    
+    def is_finished(self) -> bool:
+        return self.is_full() or self.is_winner()
     
     def test_threesome(self, threesome: list, player_name: str) -> bool:
         # This function return if the value of three cells are equals to the sign of a certain player or if their are just equal if `player_name == "Any"`
