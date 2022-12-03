@@ -1,5 +1,6 @@
 class Player:
-    def __init__(self, is_bot: bool, sign: str, name: str):
+    
+    def __init__(self, name: str, is_bot: bool, sign: str):
         self.is_bot = is_bot
         self.name = name
         self.sign = sign
