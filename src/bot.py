@@ -1,4 +1,3 @@
-from player import Player
 from morpion import Morpion
 
 
