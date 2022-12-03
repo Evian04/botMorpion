@@ -1,4 +1,4 @@
-from player import Player
+class Player: pass
 
 
 class Morpion:
@@ -26,7 +26,7 @@ class Morpion:
     def request_user(self, player_name: str) -> int:
         # This function ask to the user in which cell he wants to play using the `input()` function, and return an integer between 0 and 8 inclusive
         user_input = input(f"{player_name}, enter the index of the place you want to play : ")
-        if not user_input.is_digit() or not int(user_input) - 1 in range(9):
+        if not user_input.isdigit() or not int(user_input) - 1 in range(9):
             print("You must enter a digit between 1 and 9 inclusive !")
             return self.request_user()
         
@@ -86,27 +86,26 @@ class Morpion:
     def test_threesome(self, threesome: list, player_name: str) -> bool:
         # This function return if the value of three cells are equals to the sign of a certain player or if their are just equal if `player_name == "Any"`
         if player_name == "Any":
-            ref_value = self.content[threesome[0]]
+            ref_value = self.grid[threesome[0]]
         
         else:
             ref_value = self.get_player(player_name).get_sign()
         
         for index_cell in threesome:
-            if self.content[index_cell] != ref_value:
+            if self.grid[index_cell] != ref_value:
                 return False
         
         return True
 
     def display_grid(self):
         # This function display the grid in the terminal
-        grid = self.get_content()
-        print("\n+-------+")
+        print("\n+———————+")
         for index_line in range(3):
             line = "| "
             for index_cell in range(3):
-                line += str(grid[index_line * 3 + index_cell])
+                line += str(self.grid[index_line * 3 + index_cell])
                 if not index_cell == 2:
                     line += " "
             
             print(line + " |")
-        print("+-------+\n")
+        print("+———————+\n")

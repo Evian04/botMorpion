@@ -1,23 +1,24 @@
-from morpion import Morpion
-from player import Player
+class Morpion: pass
+class Player: pass
 
 
-def morpion_backtracking(mrp: Morpion, player: Player) -> tuple(int):
+def morpion_backtracking(mrp: Morpion, player: Player) -> tuple:
     # This function return the best play to do
-    empty_cells = mrp.get_empty_cells()
+    game = mrp
+    empty_cells = game.get_empty_cells()
 
-    best_play = (-2)
+    best_play = (-2,)
 
     for index in empty_cells:
-        mrp.play(player.get_name(), index)
+        game.play(player.get_name(), index)
 
-        if mrp.is_full():
+        if game.is_full():
             return (0, index)
 
-        if mrp.is_winner(player.get_name()):
+        if game.is_winner(player.get_name()):
             return (1, index)
 
-        result = morpion_backtracking(mrp, mrp.get_other_player(player.get_name()))
+        result = morpion_backtracking(game, game.get_other_player(player.get_name()))
         if result[0] > best_play[0]:
             best_play = result
     

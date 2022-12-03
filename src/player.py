@@ -5,7 +5,7 @@ class Player:
         self.name = name
         self.sign = sign
 
-    def is_bot(self) -> bool:
+    def is_player_bot(self) -> bool:
         return self.is_bot
 
     def get_name(self) -> str:
