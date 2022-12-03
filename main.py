@@ -21,6 +21,4 @@ while not game.is_finished():
     else:
         game.play(player, game.request_user(player))
     
-    if player == name_1:
-        player = name_2
-    else: player = name_1
+    player = game.get_other_player(player).get_name()
